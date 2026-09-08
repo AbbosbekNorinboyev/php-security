@@ -5,9 +5,6 @@ declare(strict_types=1);
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 
-require dirname(__DIR__) . '/vendor/autoload.php';
-require dirname(__DIR__) . '/vendor/yiisoft/yii2/Yii.php';
-
 $projectRoot = dirname(__DIR__);
 $autoload = $projectRoot . '/vendor/autoload.php';
 $yii = $projectRoot . '/vendor/yiisoft/yii2/Yii.php';
@@ -20,6 +17,9 @@ if (!is_file($autoload) || !is_file($yii)) {
         . "then restart the PHP server."
     );
 }
+
+require $autoload;
+require $yii;
 
 $dotenv = Dotenv\Dotenv::createUnsafeImmutable($projectRoot);
 $dotenv->safeLoad();
