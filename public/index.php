@@ -10,12 +10,14 @@ $autoload = $projectRoot . '/vendor/autoload.php';
 $yii = $projectRoot . '/vendor/yiisoft/yii2/Yii.php';
 
 if (!is_file($autoload) || !is_file($yii)) {
-    http_response_code(503);
     header('Content-Type: text/plain; charset=utf-8');
-    exit(
-        "Dependencies are not installed. Run 'composer update' in the project directory, "
-        . "then restart the PHP server."
-    );
+    echo "Yii2 dependency is missing.\n\n";
+    echo "Run these commands in the project directory:\n";
+    echo "  composer update --no-interaction\n";
+    echo "  composer dump-autoload\n\n";
+    echo "Expected file:\n";
+    echo "  {$yii}\n";
+    exit;
 }
 
 require $autoload;
