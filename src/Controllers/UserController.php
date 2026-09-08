@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Models\User;
 use App\Service\UserService;
 use Yii;
 use yii\web\Controller;
@@ -11,6 +12,11 @@ use yii\web\Response;
 
 final class UserController extends Controller
 {
+    public function actions(): array
+    {
+        return [];
+    }
+
     public function behaviors(): array
     {
         return [
@@ -18,6 +24,7 @@ final class UserController extends Controller
                 'class' => \yii\filters\VerbFilter::class,
                 'actions' => [
                     'create' => ['POST'],
+                    'list' => ['GET'],
                 ],
             ],
         ];
@@ -44,6 +51,20 @@ final class UserController extends Controller
         return [
             'success' => true,
             'user' => $user->toArray(),
+        ];
+    }
+
+    public function actionList(): array
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $users = (new UserService())->list();
+
+        return [
+            'success' => true,
+            'users' => array_map(
+                static fn (User $user): array => $user->toArray(),
+                $users,
+            ),
         ];
     }
 }

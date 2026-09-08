@@ -26,4 +26,14 @@ final class UserService
 
         return $user;
     }
+
+    /**
+     * @return list<User>
+     */
+    public function list(): array
+    {
+        return User::find()
+            ->orderBy(['created_at' => SORT_DESC])
+            ->all();
+    }
 }
