@@ -22,8 +22,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'GET users' => 'user/list',
-                'POST users' => 'user/create',
+                'GET api/users' => 'user/list',
+                'POST api/users' => 'user/create',
             ],
         ],
     ],
