@@ -26,14 +26,6 @@ require $yii;
 $dotenv = Dotenv\Dotenv::createUnsafeImmutable($projectRoot);
 $dotenv->safeLoad();
 
-if (!is_file($projectRoot . '/.env')) {
-    header('Content-Type: text/plain; charset=utf-8');
-    echo "The .env file is missing.\n\n";
-    echo "Create it with:\n";
-    echo "  Copy-Item .env.example .env\n";
-    exit;
-}
-
 $config = require $projectRoot . '/config/web.php';
 
 (new yii\web\Application($config))->run();

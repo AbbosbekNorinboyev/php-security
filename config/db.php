@@ -8,16 +8,6 @@ $environment = static function (string $name, string $default = ''): string {
     return $value === false || $value === null ? $default : trim((string) $value);
 };
 
-$required = static function (string $name): string {
-    $value = $_ENV[$name] ?? $_SERVER[$name] ?? getenv($name);
-
-    if ($value === false || trim($value) === '') {
-        throw new RuntimeException(sprintf('%s environment variable is required.', $name));
-    }
-
-    return trim($value);
-};
-
 return [
     'class' => yii\db\Connection::class,
     'dsn' => sprintf(
@@ -26,7 +16,7 @@ return [
         $environment('DB_PORT', '5432'),
         $environment('DB_NAME', 'php'),
     ),
-    'username' => $required('DB_USER'),
+    'username' => $environment('DB_USER', 'postgres'),
     'password' => $environment('DB_PASSWORD'),
     'charset' => 'utf8',
     'schemaMap' => [],
