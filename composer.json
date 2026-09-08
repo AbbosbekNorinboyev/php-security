@@ -8,6 +8,11 @@
     "serve": "php -S localhost:8090 -t public",
     "migrate": "php yii migrate --interactive=0"
   },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
+    }
+  },
   "require": {
     "ext-pdo": "*",
     "ext-pdo_pgsql": "*",
