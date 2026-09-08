@@ -12,7 +12,7 @@ final class m260908_000001_create_users_table extends Migration
             'id' => $this->string(32)->notNull(),
             'email' => $this->string(255)->notNull(),
             'password_hash' => $this->string(255)->notNull(),
-            'roles' => $this->jsonb()->notNull()->defaultValue('["ROLE_USER"]'),
+            'roles' => 'JSONB NOT NULL DEFAULT \'["ROLE_USER"]\'::jsonb',
             'created_at' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at' => $this->timestamp()->null(),
         ]);
