@@ -31,7 +31,7 @@ final class UserController extends Controller
         $user = (new UserService())->create($input);
 
         if ($user->hasErrors()) {
-            Yii::$app->response->statusCode = Response::STATUS_UNPROCESSABLE_ENTITY;
+            Yii::$app->response->statusCode = 422;
 
             return [
                 'success' => false,
@@ -39,7 +39,7 @@ final class UserController extends Controller
             ];
         }
 
-        Yii::$app->response->statusCode = Response::STATUS_CREATED;
+        Yii::$app->response->statusCode = 201;
 
         return [
             'success' => true,
