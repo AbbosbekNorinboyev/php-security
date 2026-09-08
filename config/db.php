@@ -17,13 +17,11 @@ return [
         $environment('DB_NAME', 'php'),
     ),
     'username' => $environment('DB_USER', 'postgres'),
-    'password' => $environment('DB_PASSWORD'),
+    'password' => $environment('DB_PASSWORD','2210'),
     'charset' => 'utf8',
-    'schemaMap' => [],
     'schemaCache' => false,
     'tablePrefix' => '',
     'attributes' => [
         PDO::ATTR_EMULATE_PREPARES => false,
     ],
-    'defaultSchema' => $environment('DB_SCHEMA', 'public'),
 ];
