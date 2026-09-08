@@ -21,8 +21,12 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'rules' => [
+                'GET users' => 'user/list',
+                'POST users' => 'user/create',
+            ],
         ],
     ],
-    'defaultRoute' => 'site/index',
+    'defaultRoute' => 'user/list',
     'controllerNamespace' => 'App\\Controllers',
 ];
