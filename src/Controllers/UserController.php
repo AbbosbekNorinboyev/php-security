@@ -25,6 +25,7 @@ final class UserController extends Controller
                 'actions' => [
                     'create' => ['POST'],
                     'list' => ['GET'],
+                    'update' => ['PUT']
                 ],
             ],
         ];
@@ -62,9 +63,21 @@ final class UserController extends Controller
         return [
             'success' => true,
             'users' => array_map(
-                static fn (User $user): array => $user->toArray(),
+                static fn(User $user): array => $user->toArray(),
                 $users,
             ),
+        ];
+    }
+
+    public function actionUpdate(string $id): array
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $data = Yii::$app->request->bodyParams;
+        $user = (new UserService())->update($id, $data);
+
+        return [
+            'success' => true,
+            'user' => $user
         ];
     }
 }

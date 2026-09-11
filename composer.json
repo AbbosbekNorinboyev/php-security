@@ -5,7 +5,7 @@
     }
   },
   "scripts": {
-    "serve": "php -S localhost:8090 -t public",
+    "serve": "php -S localhost:8090 -t public public/index.php",
     "migrate": "php yii migrate --interactive=0"
   },
   "config": {
