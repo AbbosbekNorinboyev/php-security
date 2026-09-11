@@ -71,4 +71,17 @@ final class UserService
 
         return $user;
     }
+
+    public function delete(string $id): User
+    {
+        $user = User::findOne($id);
+
+        if ($user === null) {
+            throw new NotFoundHttpException('User not found');
+        }
+
+        $user->delete();
+
+        return $user;
+    }
 }

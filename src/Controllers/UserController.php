@@ -80,4 +80,15 @@ final class UserController extends Controller
             'user' => $user
         ];
     }
+
+    public function actionDelete(string $id): array
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        (new UserService())->delete($id);
+
+        return [
+            'success' => true,
+            'user' => 'Successfully deleted'
+        ];
+    }
 }

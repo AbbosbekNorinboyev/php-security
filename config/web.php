@@ -25,6 +25,7 @@ return [
                 'GET api/users' => 'user/list',
                 'POST api/users' => 'user/create',
                 'PUT api/users/<id:[a-zA-Z0-9]+>' => 'user/update',
+                'DELETE api/users/<id:[a-zA-Z0-9]+>' => 'user/delete',
             ],
         ],
     ],
