@@ -74,6 +74,10 @@ final class User extends ActiveRecord
             $this->roles = json_encode($this->roles, JSON_THROW_ON_ERROR);
         }
 
+        if (!$insert) {
+            $this->updated_at = date('Y-m-d H:i:s');
+        }
+
         return true;
     }
 
