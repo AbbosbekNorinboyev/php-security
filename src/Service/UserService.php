@@ -5,11 +5,17 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Models\User;
+use App\repository\AuditLogRepository;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 
 final class UserService
 {
+    public function __construct(
+        private readonly AuditLogRepository $auditLogRepository = new AuditLogRepository(),
+    ) {
+    }
+
     public function create(array $input): User
     {
         $user = new User([
@@ -25,6 +31,15 @@ final class UserService
         }
 
         $user->save(false);
+
+        $this->auditLogRepository->log(
+            actorId: null,
+            action: 'create',
+            entity: 'user',
+            entityId: $user->id,
+            oldValues: null,
+            newValues: $user->toArray(),
+        );
 
         return $user;
     }
@@ -46,6 +61,8 @@ final class UserService
         if ($user === null) {
             throw new NotFoundHttpException('User not found');
         }
+
+        $oldValues = $user->toArray();
 
         if (array_key_exists('email', $data)) {
             $user->email = (string) $data['email'];
@@ -69,6 +86,15 @@ final class UserService
             );
         }
 
+        $this->auditLogRepository->log(
+            actorId: null,
+            action: 'update',
+            entity: 'user',
+            entityId: $user->id,
+            oldValues: $oldValues,
+            newValues: $user->toArray(),
+        );
+
         return $user;
     }
 
@@ -80,7 +106,18 @@ final class UserService
             throw new NotFoundHttpException('User not found');
         }
 
+        $oldValues = $user->toArray();
+
         $user->delete();
+
+        $this->auditLogRepository->log(
+            actorId: null,
+            action: 'delete',
+            entity: 'user',
+            entityId: $id,
+            oldValues: $oldValues,
+            newValues: null,
+        );
 
         return $user;
     }
